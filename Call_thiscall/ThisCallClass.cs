@@ -32,6 +32,5 @@ namespace Call_thiscall
         {
             return _func_thiscall(class1, a,  b,  c,  d);
         }
-
     }
 }
