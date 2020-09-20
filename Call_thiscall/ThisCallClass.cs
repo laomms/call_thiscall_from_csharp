@@ -8,26 +8,25 @@ using static Call_thiscall.Program;
 
 namespace Call_thiscall
 {
-    public unsafe class ThisCallClass : IDisposable
+    public class ThisCallClass : IDisposable
     {
         [StructLayout(LayoutKind.Sequential, Pack = 4)]
         public struct TestClass
         {
-            public IntPtr _vtable;
+            public IntPtr vtable;
         }
-
-        private TestClass* class1;//虚构类
-
+        private TestClass class1;//虚构类
+        IntPtr ptr;
         [DllImport("thiscallDll.dll", EntryPoint = "?func_thiscall@TestClass@@QAEHHHHH@Z", CallingConvention = CallingConvention.ThisCall)] //类成员函数
-        private static extern int _func_thiscall(TestClass* ths, int a, int b, int c, int d);
+        private static extern int _func_thiscall(TestClass ths, int a, int b, int c, int d);
         public ThisCallClass(int value)
         {
-            class1 = (TestClass*)Marshal.AllocHGlobal(sizeof(TestClass));
+           ptr = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(TestClass)));
+           class1 = (TestClass)Marshal.PtrToStructure(ptr, typeof(TestClass));
         }
         public void Dispose()
         {
-            Marshal.FreeHGlobal((IntPtr)class1);
-            class1 = null;
+            Marshal.FreeHGlobal(ptr);
         }
         public int func_thiscall(int a, int b, int c, int d)
         {
