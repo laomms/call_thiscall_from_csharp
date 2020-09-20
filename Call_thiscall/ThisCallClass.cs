@@ -15,10 +15,8 @@ namespace Call_thiscall
         {
             public IntPtr vtable;
         }
-        private TestClass class1;//虚构类
-        IntPtr ptr;
-        [DllImport("thiscallDll.dll", EntryPoint = "?func_thiscall@TestClass@@QAEHHHHH@Z", CallingConvention = CallingConvention.ThisCall)] //类成员函数
-        private static extern int _func_thiscall(TestClass ths, int a, int b, int c, int d);
+        public static TestClass class1;//虚构类
+        IntPtr ptr;      
         public ThisCallClass(int value)
         {
            ptr = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(TestClass)));
@@ -27,10 +25,6 @@ namespace Call_thiscall
         public void Dispose()
         {
             Marshal.FreeHGlobal(ptr);
-        }
-        public int func_thiscall(int a, int b, int c, int d)
-        {
-            return _func_thiscall(class1, a,  b,  c,  d);
         }
     }
 }
