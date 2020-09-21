@@ -5,7 +5,7 @@
 
 class __declspec(dllexport) TestClass 
 {  
-public: //11230
+public: 
 	int __thiscall func_thiscall(int a,int b,int c,int d, int e)  
 	{
 		return a + b + c + d + e;
