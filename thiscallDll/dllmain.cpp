@@ -13,7 +13,7 @@ public: //11230
 };
 
 
-class TestClass2 //1111D
+class TestClass2 
 {
 public:
 
